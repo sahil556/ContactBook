@@ -4,6 +4,11 @@
 /node_modules
 /.pnp
 .pnp.js
+/src/components
+/src/context
+/src/store
+
+
 
 # testing
 /coverage
