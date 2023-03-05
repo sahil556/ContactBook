@@ -2,12 +2,18 @@ import React, { useContext, useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 import ContactCard from './ContactCard'
 import contactContext from '../context/contactcontext'
+import { useNavigate } from 'react-router-dom'
 
 const ContactsList = (props) => {
   const context = useContext(contactContext)
   const { contacts, getContacts } = context
+  let navigate = useNavigate();
 
-  useEffect(() => {    
+  useEffect(() => { 
+    if(localStorage.getItem('token') == undefined)
+    {
+      navigate('/auth/login')
+    }   
     getContacts();
   }, [])
   

@@ -1,40 +1,60 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { MdOutlineEmail, MdOutlinePhone, MdPersonOutline } from "react-icons/md";
+import { MdAddRoad, MdHouse, MdLocationCity, MdLocationOn, MdOutlineArrowDropDown, MdOutlineCheckBox, MdOutlineDateRange, MdOutlineEmail, MdOutlineMale, MdOutlineMobileFriendly, MdOutlinePhone, MdOutlineSelectAll, MdPersonAddAlt, MdPersonOutline, MdPlace, MdStreetview } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-// import store from "../store";
-
-
+import contactContext from "../context/contactcontext";
 
 const AddContact = (props) => {
   const navigate = useNavigate();
+  const context = useContext(contactContext)
+  const {addContact} = context;
+  
   const [persondetail, setPersonDetail] = useState({
     firstName: "",
     middleName :"",
     surname:"",
     email:"",
-    birthDate:"",
+    birthDate: new Date("2000-11-01"),
     gender:"",
-    isfavourite:"",
-    mobile: {},
-    address: {},
+    isfavourite: false,
+    mobile: 0,
+    mobile2: 0,
+    nickName:""
   })
 
-  const handleChange = (e) =>{
+  const [address, setAddress] = useState({
+    house_no: 0,
+    street_Name: "",
+    city: "",
+    district: "",
+    postalCode: 0,
+    country: "India"
+  })
+
+  const handleAddressChange = (e) =>{
     const {name, value} = e.target;
-    setPersonDetail((prev) => {
+    setAddress((prev) => {
       return {...prev, [name]:value}
     })
   }
 
-  
-  let number = "123"
+  const handleChange = (e) =>{
+    const {name, value} = e.target;
+    setPersonDetail((prev) => {
+      if(name == "isfavourite")
+      {
+      return {...prev, [name]:!e.target.checked}
+      }
+      return {...prev, [name]:value}
+    })
+  }
+
   const handleSubmit = () => {
-    console.log(persondetail)
-    // store.addContact({ name, number });
+    // console.log(persondetail)
+    // console.log(address)
+    addContact(persondetail, address)
     navigate("/");
   };
-  // setName("sahil")
   return (
     <div className="p-8">
       <h1 className="mb-6 text-lg font-medium">Create Contact</h1>
@@ -97,15 +117,19 @@ const AddContact = (props) => {
             />
           </div>
 
+          
           <div className="flex gap-4 my-8 w-full items-center">
-            <MdOutlinePhone size={28} className="opacity-[0.56]" />
+            <MdPersonAddAlt size={28} className="opacity-[0.56]" />
             <input
-              value={number}
+              name="nickName"
+              value={persondetail.nickName}
               onChange={handleChange}
+              type="text"
               className="border-b w-full focus:outline-none leading-8"
-              placeholder="Phone number"
+              placeholder="Nick Name"
             />
           </div>
+
 
           <div className="flex gap-4 my-8 w-full items-center">
             <MdOutlineEmail size={28} className="opacity-[0.56]" />
@@ -119,21 +143,113 @@ const AddContact = (props) => {
             />
           </div>
 
+          <div className="flex gap-4 my-8 w-full items-center">
+            <MdOutlineMobileFriendly size={28} className="opacity-[0.56]" />
+            <input
+              name="mobile"
+              value={persondetail.mobile == 0 ? "" : persondetail.mobile}
+              onChange={handleChange}
+              type="number"
+              className="border-b w-full focus:outline-none leading-8"
+              placeholder="Mobile number"
+            />
+          </div>
 
           <div className="flex gap-4 my-8 w-full items-center">
             <MdOutlinePhone size={28} className="opacity-[0.56]" />
             <input
-              value={number}
+              name="mobile2"
+              value={persondetail.mobile2 == 0 ? "" : persondetail.mobile2}
               onChange={handleChange}
+              type="number"
               className="border-b w-full focus:outline-none leading-8"
               placeholder="Phone number"
+            />
+          </div>
+
+          <div className="flex gap-4 my-8 w-full items-center">
+            <MdOutlineSelectAll size={28} className="opacity-[0.56]" />
+            <select className="border-b w-full focus:outline-none leading-8" name="gender" onChange={handleChange} value={persondetail.gender}>
+              <option value={"male"}>male</option>
+              <option value={"female"}>female</option>
+              <option value={"other"}>other</option>
+            </select>
+          </div>
+
+          <div className="flex gap-4 my-8 w-full items-center">
+            <MdOutlineDateRange size={28} className="opacity-[0.56]" />
+            <input
+              value={persondetail.birthDate}
+              name="birthDate"
+              type="date"
+              onChange={handleChange}
+              className="border-b w-full focus:outline-none leading-8"
+              placeholder="BirthDate"
+            />
+          </div>
+
+          <div className="flex gap-4 my-8 w-full items-center">
+            <MdOutlineCheckBox size={28} className="opacity-[0.56]" />
+            <label>Favourite</label>
+            <input
+              name="isfavourite"
+              type="checkbox"
+              onClick={handleChange}
+              onChange={()=>{}}
+              checked={!persondetail.isfavourite}
+              className="w-5"
+            />
+          </div>
+
+          <div className="flex gap-4 my-8 w-full items-center">
+          <p style={{"fontSize":"22px"}}> Address Details</p>
+          </div>
+
+          <div className="flex gap-4 my-8 w-full items-center">
+            <MdHouse size={28} className="opacity-[0.56]" />
+            <input
+              name="house_no"
+              value={address.house_no == 0 ? "" : address.house_no}
+              onChange={handleAddressChange}
+              className="border-b w-full focus:outline-none leading-8"
+              placeholder="House No"
+            />
+          </div>
+          <div className="flex gap-4 my-8 w-full items-center">
+          <MdAddRoad size={28}  className="opacity-[0.56]" />
+            <input
+              name="street_Name"
+              value={address.street_Name}
+              onChange={handleAddressChange}
+              className="border-b w-full focus:outline-none leading-8"
+              placeholder="Street Name"
+            />
+          </div>
+          <div className="flex gap-4 my-8 w-full items-center">
+          <MdLocationCity size={28}  className="opacity-[0.56]" />
+            <input
+              name="city"
+              value={address.city}
+              onChange={handleAddressChange}
+              className="border-b w-full focus:outline-none leading-8"
+              placeholder="City"
+            />
+          </div>
+          <div className="flex gap-4 my-8 w-full items-center">
+          <MdPlace size={28}  className="opacity-[0.56]" />
+            <input
+              name="district"
+              value={address.district}
+              onChange={handleAddressChange}
+              className="border-b w-full focus:outline-none leading-8"
+              placeholder="District"
             />
           </div>
 
           <div className="">
             <button
               type="submit"
-              disabled={persondetail.firstName === "" || number === ""}
+              disabled={persondetail.firstName === "" || persondetail.mobile === ""}
               className="h-10 bg-[#1a73e8] text-white px-8 rounded disabled:grayscale"
             >
               Create

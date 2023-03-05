@@ -8,28 +8,35 @@ import AddContact from './components/AddContact';
 import PhoneView from './components/PhoneView';
 import Header from './components/Header';
 import ContactState from './context/contactState';
-
+import Login from './components/Login';
 import AddIcon from './assets/add.png';
+import Signup from './components/Signup';
+import { AlertProvider } from './context/AlertContext';
 import './App.css';
 
 function App() {
   return (
     <ContactState>
+    <AlertProvider>
     <BrowserRouter>
     <Toaster position="top-center"/>
     <Header/>
     <div className='max-w-[1440px] m-auto'>
     <Routes>
           <Route path="/" element={<ContactsList />} />
+          <Route path="/auth/login/" element={<Login/>}></Route>
+          <Route path="/auth/signup/" element={<Signup/>}></Route>
           <Route path="/contact/" element={<ContactView />}>
             <Route path="/contact/" element={<PhoneView />} />
-            <Route path="/contact/:id/edit" element={<ContactEdit />} />
+            <Route path="/contact/edit/:id" element={<ContactEdit />} />
           </Route>
           <Route path="/add" element={<AddContact />} />
+        
         </Routes>
     </div>
     <FAB/>
     </BrowserRouter>
+    </AlertProvider>
     </ContactState>
   );
 }

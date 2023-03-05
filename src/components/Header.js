@@ -2,10 +2,14 @@ import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import AddIcon from "../assets/add.png";
 import Logo from "../assets/logo.png";
-import SearchBox from './SearchBox';
 
 export default function Header() {
     const navigate = useNavigate();
+    const handleLogout = () =>{
+      localStorage.removeItem('token');
+      navigate('/auth/login');
+  }
+    let token = localStorage.getItem('token')
   return (
     <div>
       <header className="sticky top-0 bg-white z-10">
@@ -14,7 +18,9 @@ export default function Header() {
           <img src={Logo} className="w-10 h-10" />
           <span className="text-[#5f6368] text-xl">ContactBook</span>
         </Link>
-        <SearchBox />
+        
+        {token != undefined &&
+       
         <button
           onClick={() => navigate("/add")}
           className="px-2 sm:pr-4 py-1 border rounded-full items-center hidden md:flex gap-2 shadow hover:shadow-md"
@@ -24,6 +30,19 @@ export default function Header() {
             Create contact
           </span>
         </button>
+        }
+         {token != undefined &&
+        <button
+          onClick={handleLogout}
+          className="px-2 sm:pr-4 py-1 border rounded-full items-center hidden md:flex gap-2 shadow hover:shadow-md"
+        >
+          
+          <span className="font-medium text-sm lg:text-base hidden sm:block">
+            Logout
+          </span>
+        </button>
+        
+        }
       </div>
     </header>
     </div>

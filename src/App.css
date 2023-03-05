@@ -7,6 +7,17 @@
   pointer-events: none;
 }
 
+.viewwidth{
+  width: 600px;
+  position:absolute;
+  top: 30%;
+  left:30%
+}
+
+.viewsignup{
+  margin-left: 30%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

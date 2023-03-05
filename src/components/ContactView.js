@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { Outlet, useMatch, useNavigate, useParams } from "react-router-dom";
 import contactContext from "../context/contactcontext";
-// import store from "../../store";
 
 const ContactView = (props) => {
   const context = useContext(contactContext)
@@ -12,7 +11,11 @@ const ContactView = (props) => {
   const navigate = useNavigate();
   const qparam = new URLSearchParams(window.location.search)
   const contactId = qparam.get('id');
-  const contactName = qparam.get('name');
+  if(localStorage.getItem('token') == undefined)
+    {
+      navigate('/auth/login')
+    }
+  const contactName = localStorage.getItem('name')
   let photo = `https://ui-avatars.com/api/?name=${contactName}&length=1&background=random&size=262`
   const match = useMatch("contact/");
 
@@ -36,7 +39,7 @@ const ContactView = (props) => {
           {match && (
             <div className="flex justify-end items-end">
               <button
-                onClick={() => navigate(`/contact/${contactId}/edit`)}
+                onClick={() => navigate(`/contact/edit/${contactId}`)}
                 className="h-10 bg-[#1a73e8] text-white px-8 rounded"
               >
                 Edit
