@@ -3,9 +3,11 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import contactContext from "../context/contactcontext";
 import { MdAddRoad, MdHouse, MdLocationCity, MdLocationOn, MdOutlineArrowDropDown, MdOutlineCheckBox, MdOutlineDateRange, MdOutlineEmail, MdOutlineMale, MdOutlineMobileFriendly, MdOutlinePhone, MdOutlineSelectAll, MdPersonAddAlt, MdPersonOutline, MdPlace, MdStreetview } from "react-icons/md";
+import { AlertContext } from "../context/AlertContext";
 
 const ContactEdit = (props) => {
   const params = useParams();
+  const {alert, showAlert} = useContext(AlertContext)
   const context = useContext(contactContext)
   const { getcontactbyid, contacts, updatecontact } = context;
   let navigate = useNavigate()
@@ -77,7 +79,11 @@ const ContactEdit = (props) => {
   }, [])
 
   const handleSubmit = () => {
+    if (window.confirm("Are You Sure You want to Update contact ?")) {
     updatecontact(persondetail, address)
+    showAlert(" contact updated successfully !", "success")
+    navigate(`/contact/?id=${contactId}&name=${persondetail.firstName}`)
+    }
     // notification 
   };
 
@@ -154,6 +160,8 @@ const ContactEdit = (props) => {
             value={persondetail.mobile == undefined ? "" : persondetail.mobile}
             onChange={handleChange}
             type="number"
+            minLength={10}
+            maxLength={10}
             className="border-b w-full focus:outline-none leading-8"
             placeholder="Mobile number"
           />
@@ -168,6 +176,8 @@ const ContactEdit = (props) => {
             value={persondetail.mobile2 == "" ? "" : persondetail.mobile2}
             onChange={handleChange}
             type="number"
+            minLength={10}
+            maxLength={10}
             className="border-b w-full focus:outline-none leading-8"
             placeholder="Mobile number"
           />

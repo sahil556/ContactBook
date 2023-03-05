@@ -3,11 +3,14 @@ import { useContext } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { Outlet, useMatch, useNavigate, useParams } from "react-router-dom";
 import contactContext from "../context/contactcontext";
+import { AlertContext } from "../context/AlertContext";
+
 
 const ContactView = (props) => {
   const context = useContext(contactContext)
   const { deleteContact} = context
   const params = useParams();
+  const {alert, showAlert} = useContext(AlertContext)
   const navigate = useNavigate();
   const qparam = new URLSearchParams(window.location.search)
   const contactId = qparam.get('id');
@@ -51,6 +54,7 @@ const ContactView = (props) => {
               onClick={() => {
                 if (window.confirm("Delete contact?")) {
                   deleteContact(contactId);
+                  showAlert("Contact Deleted Successfully !", "success")
                   navigate("/");
                 }
               }}

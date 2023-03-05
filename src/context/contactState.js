@@ -247,6 +247,7 @@ const ContactState = (props) => {
       }
     });
     const json = response.json();
+    
     const newContacts = contacts.filter((contact) => { return contact.id !== id })
     setContacts(newContacts)
   }

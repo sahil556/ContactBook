@@ -3,6 +3,8 @@ import { observer } from 'mobx-react'
 import ContactCard from './ContactCard'
 import contactContext from '../context/contactcontext'
 import { useNavigate } from 'react-router-dom'
+import Alert from './Alert'
+
 
 const ContactsList = (props) => {
   const context = useContext(contactContext)
@@ -18,6 +20,8 @@ const ContactsList = (props) => {
   }, [])
   
 return (
+  <>
+  <Alert/>
   <div className="relative px-4  ">
     <table className="w-full border-separate">
       <thead className="sticky top-16 z-10 bg-white border-b">
@@ -47,6 +51,7 @@ return (
       </tbody>
     </table>
   </div>
+  </>
 )
 }
 export default observer(ContactsList)

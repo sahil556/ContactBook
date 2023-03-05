@@ -3,10 +3,13 @@ import { IoMdArrowBack } from "react-icons/io";
 import { MdAddRoad, MdHouse, MdLocationCity, MdLocationOn, MdOutlineArrowDropDown, MdOutlineCheckBox, MdOutlineDateRange, MdOutlineEmail, MdOutlineMale, MdOutlineMobileFriendly, MdOutlinePhone, MdOutlineSelectAll, MdPersonAddAlt, MdPersonOutline, MdPlace, MdStreetview } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import contactContext from "../context/contactcontext";
+import { AlertContext } from "../context/AlertContext";
+
 
 const AddContact = (props) => {
   const navigate = useNavigate();
   const context = useContext(contactContext)
+  const {alert, showAlert} = useContext(AlertContext)
   const {addContact} = context;
   
   const [persondetail, setPersonDetail] = useState({
@@ -52,7 +55,12 @@ const AddContact = (props) => {
   const handleSubmit = () => {
     // console.log(persondetail)
     // console.log(address)
+    if(persondetail.mobile.length > 10 || persondetail.mobile.length < 10 )
+    {
+      alert("please enter a valid mobile number")
+    }
     addContact(persondetail, address)
+    showAlert("Contact Added Successfully !", "success")
     navigate("/");
   };
   return (
@@ -150,6 +158,8 @@ const AddContact = (props) => {
               value={persondetail.mobile == 0 ? "" : persondetail.mobile}
               onChange={handleChange}
               type="number"
+              minLength={10}
+              maxLength={10}
               className="border-b w-full focus:outline-none leading-8"
               placeholder="Mobile number"
             />
@@ -162,6 +172,8 @@ const AddContact = (props) => {
               value={persondetail.mobile2 == 0 ? "" : persondetail.mobile2}
               onChange={handleChange}
               type="number"
+              minLength={10}
+              maxLength={10}
               className="border-b w-full focus:outline-none leading-8"
               placeholder="Phone number"
             />

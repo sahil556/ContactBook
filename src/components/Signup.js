@@ -19,8 +19,12 @@ const Signup = (props) => {
     const {alert, showAlert} = useContext(AlertContext)
     const handleSubmit = async (e) => {
         e.preventDefault();
-       const {name, email, password, mobile} = credentials; 
-       if(!regularExpression.test(password))
+       const {name, email, password, mobile} = credentials;
+        if(mobile.length > 10 || mobile.length < 10)
+        {
+            showAlert(" please enter a valid mobile number !", "danger")
+        }
+       else if(!regularExpression.test(password))
        {
         showAlert("password should be alphanumerical and contain atleast one special character!", "danger");
        }
@@ -37,7 +41,7 @@ const Signup = (props) => {
         const json = await response.text()
         
         
-        if (response.success){
+        if (response.status == 200){
             // Save the auth token and redirect
             // localStorage.setItem('token', json.authtoken); 
             navigate("/auth/login");
@@ -78,7 +82,7 @@ const Signup = (props) => {
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div className="form-group mb-4">
-                    <TextField color="secondary" type="number" name='mobile' className="form-control" id="name" required aria-describedby="emailHelp" onChange={onChange} label="Your Mobile Number" variant="outlined" fullWidth  />
+                    <TextField color="secondary" type="number" minLength="10" name='mobile' className="form-control" id="name" required aria-describedby="emailHelp" onChange={onChange} label="Your Mobile Number" variant="outlined" fullWidth  />
                 </div>
                 <div className="form-group mb-2">
                 <FormControl variant="outlined" fullWidth>
@@ -107,7 +111,7 @@ const Signup = (props) => {
                 <br></br>
                 <Button type="submit" fullWidth size="large" className="mb-4" variant="contained" color="secondary" style={{ textTransform: "none", fontFamily: "'Poppins', sans-serif", fontSize: "1.1rem" }}>SignUp</Button>
             </form>
-            <p>Have an account? <Link to="/login" ><u>login</u></Link> </p>
+            <p>Have an account? <Link to="/auth/login" ><u>login</u></Link> </p>
 
             </div>
         </div>

@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { MdChildFriendly, MdContactPage, MdFavorite, MdOutlineCalendarToday, MdOutlineEmail, MdOutlineLocationCity, MdOutlinePerson, MdOutlinePhone, MdOutlinePlace, MdPerson } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import contactContext from "../context/contactcontext";
+import Alert from "./Alert";
 
 const PhoneView = () => {
   const context = useContext(contactContext)
+  
   const { getcontactbyid, contacts } = context;
   let navigate = useNavigate()
   const qparam = new URLSearchParams(window.location.search)
@@ -19,6 +21,7 @@ const PhoneView = () => {
   let contact = contacts[0]
   return (
     <>
+      <Alert/>
       <div className="border p-4 flex flex-col gap-4 max-w-[520px] rounded-xl">
         <h2 className="font-medium d-inline-block"> Contact Details { contact.isfavourite && <span><i class="fas fa-star"></i></span>}</h2>
        
