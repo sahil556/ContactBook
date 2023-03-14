@@ -1,4 +1,5 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
+import { toast } from 'react-hot-toast'
 import Alert from './Alert'
 import { AlertContext } from '../context/AlertContext'
 import { Link, useNavigate } from 'react-router-dom'
@@ -10,12 +11,15 @@ const Login = (props) => {
     const [credentials, setCredentials] = useState({email: "", password: ""}) 
     const [showPassword, setShowPassword] = useState(false)
     
+    
     let navigate = useNavigate();
     const { showAlert } = useContext(AlertContext)
     
     const handleSubmit = async (e) => {
+        
         console.log("request submitted")
         e.preventDefault();
+        
         const response = await fetch("https://localhost:7228/api/Auth/Login", {
             method: 'POST',
             headers: {
@@ -29,12 +33,12 @@ const Login = (props) => {
             // Save the auth token and redirect
             localStorage.setItem('token', json); 
             // console.log(json.authtoken)
-            showAlert("Logged in Successfully", "success");
+            toast.success("Logged in Successfully");
             navigate("/");
 
         }
         else{
-            showAlert("Invalid Credential", "danger");
+            toast.error("Invalid Credential !")
         }
     }
 
@@ -49,6 +53,10 @@ const Login = (props) => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    useEffect(()=>{
+        toast.success("welcome sahil")
+    }, [])
 
     return (
         <>

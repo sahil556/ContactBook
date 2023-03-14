@@ -9,10 +9,13 @@ export default function Header() {
       localStorage.removeItem('token');
       navigate('/auth/login');
   }
+    const viewProfile = () => {
+       navigate("/user/view/")
+    }
     let token = localStorage.getItem('token')
   return (
     <div>
-      <header className="sticky top-0 bg-white z-10">
+      <header className="sticky top-0 bg-white z-10 mb-3">
       <div className="flex flex-col sm:flex-row sm:items-center pr-4 justify-between max-w-[1440px] m-auto">
         <Link to={"/"} className="flex px-8 py-3 items-center gap-3">
           <img src={Logo} className="w-10 h-10" />
@@ -31,7 +34,20 @@ export default function Header() {
           </span>
         </button>
         }
-         {token != undefined &&
+      </div>
+      <div className="flex flex-col sm:flex-row sm:items-center pr-4 max-w-[1440px] m-auto">
+      {token != undefined &&
+        <button
+          onClick={viewProfile}
+          className="px-2 mx-2 sm:pr-4 py-1 border rounded-full items-center hidden md:flex gap-2 shadow hover:shadow-md"
+        >
+          
+          <span className="font-medium text-sm lg:text-base hidden sm:block">
+            View Profile
+          </span>
+        </button>
+        }
+      {token != undefined &&
         <button
           onClick={handleLogout}
           className="px-2 sm:pr-4 py-1 border rounded-full items-center hidden md:flex gap-2 shadow hover:shadow-md"
@@ -41,9 +57,9 @@ export default function Header() {
             Logout
           </span>
         </button>
-        
         }
-      </div>
+        
+        </div>
     </header>
     </div>
   )

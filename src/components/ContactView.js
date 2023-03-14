@@ -1,19 +1,24 @@
 import { observer } from "mobx-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { Outlet, useMatch, useNavigate, useParams } from "react-router-dom";
 import contactContext from "../context/contactcontext";
 import { AlertContext } from "../context/AlertContext";
-
+import { toast } from "react-hot-toast";
+import DeleteConfirm from "./DeleteConfirm";
 
 const ContactView = (props) => {
   const context = useContext(contactContext)
   const { deleteContact} = context
+  const [display, setDisplay] = useState(false);
   const params = useParams();
   const {alert, showAlert} = useContext(AlertContext)
   const navigate = useNavigate();
   const qparam = new URLSearchParams(window.location.search)
   const contactId = qparam.get('id');
+  const deleteconfirm = () =>{
+    setDisplay(true);
+  }
   if(localStorage.getItem('token') == undefined)
     {
       navigate('/auth/login')
@@ -24,6 +29,7 @@ const ContactView = (props) => {
 
   return (
     <div className="p-8">
+      <DeleteConfirm display={display}/>
       <div className="flex justify-between flex-col sm:flex-row">
         <div className="flex gap-8 flex-col sm:flex-row">
           <div className="flex gap-8">
@@ -51,13 +57,20 @@ const ContactView = (props) => {
           )}
           <div className="flex justify-end items-end">
             <button
-              onClick={() => {
-                if (window.confirm("Delete contact?")) {
-                  deleteContact(contactId);
-                  showAlert("Contact Deleted Successfully !", "success")
-                  navigate("/");
-                }
-              }}
+              onClick={
+                deleteconfirm
+                // () => {
+                // if (window.confirm("Delete contact?")) {
+                  // deleteContact(contactId).then(()=>{
+                    // toast.success("Contact Deleted Successfully");
+                    // navigate("/");
+                  // }, ()=>{
+                    // toast.error("Contact Deletion Failed");
+                  // })
+                  
+                // }
+              // }
+            }
               className="h-10 bg-[#d44235] text-white px-8 rounded"
             >
               Delete

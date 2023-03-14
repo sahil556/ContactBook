@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import contactContext from "../context/contactcontext";
 import { MdAddRoad, MdHouse, MdLocationCity, MdLocationOn, MdOutlineArrowDropDown, MdOutlineCheckBox, MdOutlineDateRange, MdOutlineEmail, MdOutlineMale, MdOutlineMobileFriendly, MdOutlinePhone, MdOutlineSelectAll, MdPersonAddAlt, MdPersonOutline, MdPlace, MdStreetview } from "react-icons/md";
 import { AlertContext } from "../context/AlertContext";
+import { toast } from "react-hot-toast";
+import { display } from "@mui/system";
 
 const ContactEdit = (props) => {
   const params = useParams();
@@ -41,6 +43,8 @@ const ContactEdit = (props) => {
       return { ...prev, [name]: value }
     })
   }
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,15 +84,21 @@ const ContactEdit = (props) => {
 
   const handleSubmit = () => {
     if (window.confirm("Are You Sure You want to Update contact ?")) {
-    updatecontact(persondetail, address)
-    showAlert(" contact updated successfully !", "success")
-    navigate(`/contact/?id=${contactId}&name=${persondetail.firstName}`)
+    let status = updatecontact(persondetail, address)
+    console.log(status)
+    status.then(()=>{
+      toast.success("Contact Updated Successfully");
+      navigate(`/contact/?id=${contactId}&name=${persondetail.firstName}`)
+    }, ()=>{
+      toast.error("Contact Updation Failed");
+    })
     }
     // notification 
   };
 
   return (
     <div>
+      
       <form
         className="max-w-[520px]"
         onSubmit={(e) => {

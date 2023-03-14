@@ -4,7 +4,7 @@ import { MdAddRoad, MdHouse, MdLocationCity, MdLocationOn, MdOutlineArrowDropDow
 import { useNavigate } from "react-router-dom";
 import contactContext from "../context/contactcontext";
 import { AlertContext } from "../context/AlertContext";
-
+import { toast } from "react-hot-toast";
 
 const AddContact = (props) => {
   const navigate = useNavigate();
@@ -59,9 +59,13 @@ const AddContact = (props) => {
     {
       alert("please enter a valid mobile number")
     }
-    addContact(persondetail, address)
-    showAlert("Contact Added Successfully !", "success")
-    navigate("/");
+    let status = addContact(persondetail, address)
+    status.then(()=>{
+      toast.success("Contact Saved Successfully");
+      navigate("/");
+    }, ()=>{
+      toast.error("Something Went Wrong !");
+    })
   };
   return (
     <div className="p-8">

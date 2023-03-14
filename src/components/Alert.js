@@ -11,10 +11,18 @@ export default function Alert(props) {
         return lower.charAt(0).toUpperCase() + lower.slice(1);
     }
     return (
-        <div  style={{height: '50px'}}>
-        {alert && <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
+        <>
+        {alert &&
+        <div style={{height: '52px'}} className="my-3">
+         <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
             <strong>{capitaliza(alert.type)}</strong> {alert.msg}
-        </div>}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
         </div>
+        
+
+        </div>}
+        </>
     )
 }

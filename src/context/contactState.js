@@ -189,6 +189,7 @@ const ContactState = (props) => {
      });
      
      let data = await response.text();
+     return response.status;
     //  console.log(data);
 
      
@@ -233,6 +234,7 @@ const ContactState = (props) => {
 
     const contact = await response.json()
     setContacts(contacts.concat(contact))
+    return response.status;
   }
 
   // delete contact from contact list
@@ -250,10 +252,11 @@ const ContactState = (props) => {
     
     const newContacts = contacts.filter((contact) => { return contact.id !== id })
     setContacts(newContacts)
+    return response.status;
   }
 
   return (
-    <contactContext.Provider value={{ contacts, getContacts, deleteContact, getcontactbyid, addContact, updatecontact }}>
+    <contactContext.Provider value={{ contacts, getContacts, deleteContact, getcontactbyid, addContact, updatecontact, setContacts }}>
       {props.children}
     </contactContext.Provider>
   )

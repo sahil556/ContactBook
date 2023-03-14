@@ -1,5 +1,5 @@
 import { BrowserRouter,Route, Routes, useNavigate} from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 import { observer } from 'mobx-react';
 import ContactsList from './components/ContactsList';
 import ContactEdit from './components/ContactEdit';
@@ -11,8 +11,13 @@ import ContactState from './context/contactState';
 import Login from './components/Login';
 import AddIcon from './assets/add.png';
 import Signup from './components/Signup';
+import ViewProfile from './components/ViewProfile';
+import DeleteConfirm from './components/DeleteConfirm';
 import { AlertProvider } from './context/AlertContext';
+import { Toast } from 'react-hot-toast';
 import './App.css';
+import { Button } from '@mui/material';
+import React from 'react';
 
 function App() {
   return (
@@ -26,6 +31,8 @@ function App() {
           <Route path="/" element={<ContactsList />} />
           <Route path="/auth/login/" element={<Login/>}></Route>
           <Route path="/auth/signup/" element={<Signup/>}></Route>
+          <Route path="/user/view/" element={<ViewProfile/>}></Route>
+          <Route path='/delete' element={<DeleteConfirm/>}></Route>
           <Route path="/contact/" element={<ContactView />}>
             <Route path="/contact/" element={<PhoneView />} />
             <Route path="/contact/edit/:id" element={<ContactEdit />} />
@@ -38,6 +45,7 @@ function App() {
     </BrowserRouter>
     </AlertProvider>
     </ContactState>
+    
   );
 }
 
