@@ -11,7 +11,6 @@ const Login = (props) => {
     const [credentials, setCredentials] = useState({email: "", password: ""}) 
     const [showPassword, setShowPassword] = useState(false)
     
-    
     let navigate = useNavigate();
     const { showAlert } = useContext(AlertContext)
     
@@ -54,13 +53,15 @@ const Login = (props) => {
         event.preventDefault();
     };
 
+    
+
     useEffect(()=>{
-        toast.success("welcome sahil")
+        toast.success("Welcome to ContactBook")
+
     }, [])
 
     return (
         <>
-        <Alert alert={alert} />
         <div className='container mt-3 viewwidth' >
             <h2 style={{ fontWeight: "Bold", fontSize:"30px" }}>Login to continue to ContactBook </h2>
             <form  onSubmit={handleSubmit}>

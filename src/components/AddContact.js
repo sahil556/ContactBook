@@ -55,9 +55,11 @@ const AddContact = (props) => {
   const handleSubmit = () => {
     // console.log(persondetail)
     // console.log(address)
-    if(persondetail.mobile.length > 10 || persondetail.mobile.length < 10 )
+    var regex = /[a-zA-Z]/g;
+    if(regex.test(persondetail.mobile) || persondetail.mobile.length > 10 || persondetail.mobile.length < 10 )
     {
-      alert("please enter a valid mobile number")
+      toast.danger("please enter a valid mobile number")
+      return
     }
     let status = addContact(persondetail, address)
     status.then(()=>{

@@ -35,7 +35,6 @@ const ContactState = (props) => {
        headers: headersList
      });
      
-     console.log("requesting")
      let json = await response.json();
      setContacts(json);
   }
@@ -200,7 +199,6 @@ const ContactState = (props) => {
   // add new contact 
   // *******************8
   const addContact = async (user, address) => {
-    console.log(user, address)
     if(address.city != "")
     {
       user.addresses = []
@@ -219,7 +217,6 @@ const ContactState = (props) => {
     delete user["mobile"]
     delete user["mobile2"]
 
-    
     // API Call 
     const response = await fetch(`${host}/api/ContactItems`, {
       method: 'POST',

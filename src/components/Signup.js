@@ -30,7 +30,7 @@ const Signup = (props) => {
        }
        else
        {
-        
+        showAlert("Please Wait for a while", "warning");
         const response = await fetch("https://localhost:7228/api/Auth/Register", {
             method: 'POST',
             headers: {
@@ -111,7 +111,6 @@ const Signup = (props) => {
                 <br></br>
                 <Button type="submit" fullWidth size="large" className="mb-4" variant="contained" color="secondary" style={{ textTransform: "none", fontFamily: "'Poppins', sans-serif", fontSize: "1.1rem" }}>SignUp</Button>
             </form>
-            <p>Have an account? <Link to="/auth/login" ><u>login</u></Link> </p>
 
             </div>
         </div>

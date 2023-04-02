@@ -14,14 +14,17 @@ export default function Header() {
   const headers = [
     { label: 'firstName', key: 'firstName' },
     { label: 'middleName', key: 'middleName' },
-    { label: 'middleName', key: 'surname' },
+    { label: 'surname', key: 'surname' },
     { label: 'nickName', key: 'nickName' },
     { label: 'email', key: 'email' },
     { label: 'Birthdate', key: 'birthDate' },
     { label: 'isFavourite', key: 'isFavourite' },
     { label: 'gender', key: 'gender' },
     { label: 'linkedinUrl', key: 'linkedinUrl' },
-    { label: 'relationship', key: 'relationship' }
+    { label: 'relationship', key: 'relationship' },
+    { label: 'mobile', key: 'mobileNumbers[0].mobile'},
+    { label: 'mobile2', key: 'mobileNumbers[1].mobile'},
+    
   ]
   const csvReport = {
     filename: "contacts.csv",
@@ -55,7 +58,8 @@ export default function Header() {
             download:true,
             complete: function(results) {
               document.getElementById('import').innerHTML = "Add to Your Contact";
-              setCsvData(results.data);
+              
+              setCsvData(results.data); 
               toast.success("file imported ! click add to contact")
             }}
           )
@@ -70,14 +74,33 @@ export default function Header() {
       postalCode: 0,
       country: "India"
     };
-
+    const user = {
+      firstName: "",
+      middleName :"",
+      surname:"",
+      email:"",
+      birthDate: new Date("2000-11-01"),
+      gender:"male",
+      isfavourite: false,
+      mobile: 0,
+      mobile2: 0,
+      nickName:""
+    }
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
     const handleOnSubmit = (e) => {
         e.preventDefault();
         let i = 1;
+        
         for(let persondetail of csvData)
         {
-          persondetail.mobile = "1234567890"
-          persondetail.mobile2 = "1234567890"
+          if(persondetail.firstName === "")
+          break;
+          if(persondetail.isFavourite === "FALSE")
+            persondetail.isFavourite = false;
+          else
+            persondetail.isFavourite = true;
           if(persondetail.mobile.length > 10 || persondetail.mobile.length < 10 )
           {
             continue;
@@ -88,9 +111,9 @@ export default function Header() {
           }, ()=>{
             toast.error("Something Went Wrong !");
           })
+          sleep(3000);
           i++;
         }
-       
         navigate('/')
 
     };
@@ -148,17 +171,18 @@ export default function Header() {
 
 
           }
-          {token != undefined &&
+          {token != undefined && contacts.length > 0 &&
             <button
               className="px-2 mx-2 sm:pr-4 py-1 border rounded-full items-center hidden md:flex gap-2 shadow hover:shadow-md"
+              
             >
 
               <span className="font-medium text-sm lg:text-base hidden sm:block">
-                <CSVLink {...csvReport}>Export Contact</CSVLink>
+                <CSVLink {...csvReport} >Export Contact</CSVLink>
               </span>
             </button>
           }
-          {/* {token != undefined &&
+          {token != undefined &&
             <div
               className="px-2 mx-2 sm:pr-4 py-1 border rounded-full items-center hidden md:flex gap-2 shadow hover:shadow-md"
             >
@@ -171,7 +195,7 @@ export default function Header() {
                         handleOnSubmit(e);
                     }} id='import'> Import CSV </button>
             </div>
-          } */}
+          }
 
         </div>
       </header>

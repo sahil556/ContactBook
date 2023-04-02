@@ -20,8 +20,12 @@ export default function ViewProfile() {
 
     let data = await response.json();
     delete data.contactItems
+    if (data.birthdate != null)
     data.birthdate = data.birthdate.substr(0, 10);
+    else
+    data.birthdate = "2000-01-01";
     setCredentials(data)
+    console.log(data)
 
   }
   useEffect(() => {
@@ -116,10 +120,12 @@ export default function ViewProfile() {
            
           </div>
           <div className="col-md-4">
+       
         <div className="p-3 py-5">
-          <div className="col-md-12"><label className="labels">Experience in Designing</label><input
+          <div className="col-md-12"><label className="labels">Your Birthdate </label><input
               className="form-control" name="birthdate" onChange={onChange} placeholder="experience" value={credentials.birthdate} type="date"/></div>
         </div>
+        
       </div>
         </div>
       </div>
