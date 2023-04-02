@@ -50,12 +50,6 @@ export default observer(App);
 
 const FAB = () => {
   const navigate = useNavigate();
-  const [condition, setCondition] = useState(false);
-  if
-
-
-
-  
   return (
     <button
       onClick={() => navigate("/add")}
