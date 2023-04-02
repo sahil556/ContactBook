@@ -25,6 +25,7 @@ const ContactsList = (props) => {
     if(searchString == "")
       getContacts();
   }
+  console.log(contacts)
 
   return (
     <>
@@ -44,7 +45,7 @@ const ContactsList = (props) => {
           </thead>
           <div className="my-2 mt-4">
             <p className="uppercase text-xs font-medium opacity-[0.56] px-4">
-              Contacts
+              Contacts ({contacts.length})
             </p>
           </div>
           <tbody>

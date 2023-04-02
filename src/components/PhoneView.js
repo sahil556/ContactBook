@@ -3,25 +3,31 @@ import { MdChildFriendly, MdContactPage, MdFavorite, MdOutlineCalendarToday, MdO
 import { useNavigate, useParams } from "react-router-dom";
 import contactContext from "../context/contactcontext";
 import Alert from "./Alert";
+import ContactView from "./ContactView";
 
 const PhoneView = () => {
   const context = useContext(contactContext)
   
+  const params = useParams();
   const { getcontactbyid, contacts } = context;
   let navigate = useNavigate()
-  const qparam = new URLSearchParams(window.location.search)
-  const contactId = qparam.get('id');
-  useEffect(() => {
+  const contactId = params.id;
+  console.log(contactId)  
+ 
+  useEffect(()=>{
     if(localStorage.getItem('token') == undefined)
     {
       navigate('/auth/login')
     }
     getcontactbyid(contactId);
-  }, [])
+  }, localStorage.getItem("first"))
   let contact = contacts[0]
+  console.log(contact)
+ 
   return (
     <>
-      <Alert/>
+     
+      <ContactView name={contact.firstName + " " + contact.surname} id={contact.id} mode={"view"}/>
       <div className="border p-4 flex flex-col gap-4 max-w-[520px] rounded-xl">
         <h2 className="font-medium d-inline-block"> Contact Details { contact.isfavourite && <span><i class="fas fa-star"></i></span>}</h2>
        
@@ -36,12 +42,12 @@ const PhoneView = () => {
 
         <div className="flex gap-4 items-center">
           <MdOutlinePhone className="opacity-[0.7]" size={24} />
-          <a href={`tel:${contact["mobileNumbers"][0].mobile}`} className="text-blue-500">
+          <a href={`tel:${contact.mobileNumbers[0]}`} className="text-blue-500">
             {contact["mobileNumbers"][0].mobile}
             <br />
-            {contact["mobileNumbers"].length > 1 && 
-             contact["mobileNumbers"][1].mobile}
-             {contact["mobileNumbers"].length > 1 && 
+            {contact.mobileNumbers[0].length > 1 && 
+             contact.mobileNumbers[0]}
+             {contact.mobileNumbers[0].length > 1 && 
              <br/>}
             <span style={{ "textDecoration": "none", "color": "Black" }}>Mobile</span>
           </a>

@@ -35,9 +35,9 @@ const ContactState = (props) => {
        headers: headersList
      });
      
+     console.log("requesting")
      let json = await response.json();
      setContacts(json);
-     
   }
 
   // add  mobile
@@ -200,7 +200,7 @@ const ContactState = (props) => {
   // add new contact 
   // *******************8
   const addContact = async (user, address) => {
-
+    console.log(user, address)
     if(address.city != "")
     {
       user.addresses = []
@@ -254,6 +254,8 @@ const ContactState = (props) => {
     setContacts(newContacts)
     return response.status;
   }
+  
+  
 
   return (
     <contactContext.Provider value={{ contacts, getContacts, deleteContact, getcontactbyid, addContact, updatecontact, setContacts }}>

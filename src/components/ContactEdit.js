@@ -6,6 +6,7 @@ import { MdAddRoad, MdHouse, MdLocationCity, MdLocationOn, MdOutlineArrowDropDow
 import { AlertContext } from "../context/AlertContext";
 import { toast } from "react-hot-toast";
 import { display } from "@mui/system";
+import ContactView from "./ContactView";
 
 const ContactEdit = (props) => {
   const params = useParams();
@@ -88,7 +89,7 @@ const ContactEdit = (props) => {
     console.log(status)
     status.then(()=>{
       toast.success("Contact Updated Successfully");
-      navigate(`/contact/?id=${contactId}&name=${persondetail.firstName}`)
+      navigate(`/contact/view/${contactId}`)
     }, ()=>{
       toast.error("Contact Updation Failed");
     })
@@ -97,6 +98,8 @@ const ContactEdit = (props) => {
   };
 
   return (
+    <>
+    <ContactView id={contactId} name={persondetail.firstName + " " + persondetail.surname} mode={"edit"}/>
     <div>
       
       <form
@@ -106,7 +109,7 @@ const ContactEdit = (props) => {
           handleSubmit();
         }}
       >
-        <div className="flex gap-4 my-8 w-full items-center">
+        <div className="flex gap-4 w-full items-center">
           <MdPersonOutline size={28} className="opacity-[0.56]" />
           <input
             name="firstName"
@@ -284,6 +287,7 @@ const ContactEdit = (props) => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

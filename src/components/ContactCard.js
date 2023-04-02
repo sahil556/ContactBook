@@ -15,8 +15,7 @@ export default function ContactCard(props) {
   return (
     <tr
       onClick={() => {
-        navigate(`/contact/?id=${contact.id}&name=${contact.firstName}`);
-        localStorage.setItem('name', contact.firstName)
+        navigate(`/contact/view/${contact.id}`);
       }}
       role="button"
       className="hover:bg-[#f5f5f5] group relative"

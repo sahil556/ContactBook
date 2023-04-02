@@ -61,7 +61,7 @@ const Login = (props) => {
     return (
         <>
         <Alert alert={alert} />
-        <div className='container mt-3 viewwidth' style={{position: "absolute"}}>
+        <div className='container mt-3 viewwidth' >
             <h2 style={{ fontWeight: "Bold", fontSize:"30px" }}>Login to continue to ContactBook </h2>
             <form  onSubmit={handleSubmit}>
                 <div className="mb-3">

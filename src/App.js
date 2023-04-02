@@ -12,12 +12,11 @@ import Login from './components/Login';
 import AddIcon from './assets/add.png';
 import Signup from './components/Signup';
 import ViewProfile from './components/ViewProfile';
-import DeleteConfirm from './components/DeleteConfirm';
 import { AlertProvider } from './context/AlertContext';
 import { Toast } from 'react-hot-toast';
 import './App.css';
 import { Button } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 function App() {
   return (
@@ -32,11 +31,8 @@ function App() {
           <Route path="/auth/login/" element={<Login/>}></Route>
           <Route path="/auth/signup/" element={<Signup/>}></Route>
           <Route path="/user/view/" element={<ViewProfile/>}></Route>
-          <Route path='/delete' element={<DeleteConfirm/>}></Route>
-          <Route path="/contact/" element={<ContactView />}>
-            <Route path="/contact/" element={<PhoneView />} />
-            <Route path="/contact/edit/:id" element={<ContactEdit />} />
-          </Route>
+          <Route path="/contact/view/:id" element={<PhoneView/>}></Route>
+          <Route path="/contact/edit/:id" element={<ContactEdit />} ></Route> 
           <Route path="/add" element={<AddContact />} />
         
         </Routes>
@@ -54,7 +50,12 @@ export default observer(App);
 
 const FAB = () => {
   const navigate = useNavigate();
+  const [condition, setCondition] = useState(false);
+  if
 
+
+
+  
   return (
     <button
       onClick={() => navigate("/add")}

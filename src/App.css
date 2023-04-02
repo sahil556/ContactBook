@@ -47,3 +47,25 @@
     transform: rotate(360deg);
   }
 }
+
+.viewwidth {
+  width: 600px;
+}
+
+
+@media(max-width: 600px){
+  .viewwidth {
+      width: auto;
+      margin: 15px;
+      top: 12%;
+      left: 0;
+  }
+
+  .viewsignup{
+    width: 100%;
+    left: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+  }
+}

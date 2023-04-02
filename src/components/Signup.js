@@ -68,8 +68,8 @@ const Signup = (props) => {
         <>
         <Alert alert={alert}/>
        
-        <div className="d-flex mt-3 viewsignup">
-            <div className="col-md-7 ps-5 pe-5 pt-2" style={{ width: "50%" }}>
+        <div className="d-flex mt-3">
+            <div className="col-md-7 ps-5 pe-5 pt-2 viewsignup " style={{ width: "50%" }}>
             <Button className="mb-4" variant="text" color="secondary" startIcon={<ArrowBackIcon />} component={Link} to="/auth/login" style={{ textTransform: "none", fontFamily: "'Poppins', sans-serif" }}>Login here</Button>
             <h2 style={{ fontWeight: "Bold", fontSize: "30px" }}>Create an account to use ContactBook</h2>
             <p className="mb-4">Use your email to create a new account</p>
